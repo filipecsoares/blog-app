@@ -1,9 +1,11 @@
 const express = require('express');
+const morgan = require("morgan");
 const routes = require('./routers/router');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
+app.use(morgan("common"));
 
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,    

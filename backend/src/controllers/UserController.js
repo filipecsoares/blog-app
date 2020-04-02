@@ -37,5 +37,21 @@ module.exports = {
       res.status(400);
       next(error);
     }
+  },
+  async index(req, res, next) {
+    try {
+      const users = await User.find({});
+      if (!users.length)
+        return res.status(400).send({ error: "Unable to get users." });
+      res.status(200).send(
+        users.map(user => ({
+          _id: user.id,
+          username: user.username
+        }))
+      );
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

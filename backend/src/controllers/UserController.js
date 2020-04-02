@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 module.exports = {
   async register(req, res, next) {
     try {
@@ -7,9 +8,11 @@ module.exports = {
       if (userExists) {
         return res.status(400).send({ error: "Username already in use." });
       }
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
       const user = await User.create({
         username,
-        password
+        password: hash
       });
       res.status(201).send({
         id: user.id,
@@ -18,6 +21,19 @@ module.exports = {
     } catch (err) {
       res.status(400);
       next(err);
+    }
+  },
+  async login(req, res, next) {
+    try {
+      const { username, password } = req.body;
+      const user = await User.findOne({ username });
+      if (!user) return res.status(404).send({ error: "Username not found." });
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (!validPassword) return res.status(400).send("Invalid password.");
+      res.send({ message: "User logged in." });
+    } catch (error) {
+      res.status(400);
+      next(error);
     }
   }
 };

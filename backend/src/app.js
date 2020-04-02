@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const routes = require("./routers/router");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const middlewares = require('./errors/midlewares');
+const requestErros = require('./midlewares/request-errors');
 require("dotenv").config();
 const app = express();
 app.use(morgan("common"));
@@ -23,8 +23,8 @@ app.use(
 );
 app.use(express.json());
 app.use(routes);
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandling);
+app.use(requestErros.notFound);
+app.use(requestErros.errorHandling);
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);

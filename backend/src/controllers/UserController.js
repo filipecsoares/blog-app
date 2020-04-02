@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 module.exports = {
   async register(req, res, next) {
     try {
@@ -30,7 +31,8 @@ module.exports = {
       if (!user) return res.status(404).send({ error: "Username not found." });
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword) return res.status(400).send("Invalid password.");
-      res.send({ message: "User logged in." });
+      const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET);
+      res.header("auth-token", token).send({ token });
     } catch (error) {
       res.status(400);
       next(error);

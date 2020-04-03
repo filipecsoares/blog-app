@@ -62,5 +62,15 @@ module.exports = {
       res.status(400);
       next(err);
     }
+  },
+  async findByUser(req, res, next) {
+    const { id } = req.params;
+    try {
+      const posts = await Post.find({ owner: id });
+      res.status(200).send(posts);
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

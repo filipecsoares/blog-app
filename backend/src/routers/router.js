@@ -15,5 +15,6 @@ routes.delete('/posts/:id', authenticate, PostController.delete);
 routes.put('/posts/:id', authenticate, PostController.likeUnlike);
 routes.get('/posts', authenticate, PostController.index);
 routes.get('/posts/:id', authenticate, PostController.findById);
+routes.get('/users/:id/posts', authenticate, PostController.findByUser);
 
 module.exports = routes;

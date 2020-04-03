@@ -22,5 +22,25 @@ module.exports = {
       res.status(400);
       next(err);
     }
+  },
+  async likeUnlike(req, res, next) {
+    const { id } = req.params;
+    try {
+      const post = await Post.findById(id);
+      if (!post) return res.status(400).send({ error: "Post not found." });
+      if (post.owner === req.user._id)
+        return res.status(400).send({ error: "Unable to update post." });
+      const postAlreadyLiked = post.likes.some(like => like == req.user._id);
+      if (postAlreadyLiked) {
+        post.likes = post.likes.filter(like => like != req.user._id);
+      } else {
+        post.likes.push(req.user._id);
+      }
+      post.save();
+      res.status(200).send(post);
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

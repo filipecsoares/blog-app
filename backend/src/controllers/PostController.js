@@ -12,5 +12,15 @@ module.exports = {
       content: post.content,
       likes: post.likes
     });
+  },
+  async delete(req, res, next) {
+    const { id } = req.params;
+    try {
+      await Post.deleteOne({ _id: id });
+      res.status(200).send({ message: "Post deleted." });
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

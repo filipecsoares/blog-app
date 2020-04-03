@@ -42,5 +42,25 @@ module.exports = {
       res.status(400);
       next(err);
     }
+  },
+  async index(req, res, next) {
+    try {
+      const posts = await Post.find({});
+      res.status(200).send(posts);
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
+  },
+  async findById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const post = await Post.findById(id);
+      if (!post) return res.status(400).send({ error: "Post not found." });
+      res.status(200).send(post);
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

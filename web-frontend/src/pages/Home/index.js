@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import PostForm from "../../components/PostForm";
+import PostForm from "../PostForm";
 import PostList from "../../components/PostList";
 import Layout from "../../components/Layout";
 

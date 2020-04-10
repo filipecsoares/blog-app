@@ -53,5 +53,16 @@ module.exports = {
       res.status(400);
       next(err);
     }
+  },
+  async findById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const user = await User.findById(id);
+      if (!user) return res.status(400).send({ error: "User not found." });
+      res.status(200).send(user);
+    } catch (err) {
+      res.status(400);
+      next(err);
+    }
   }
 };

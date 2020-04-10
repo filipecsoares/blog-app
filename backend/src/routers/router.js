@@ -9,6 +9,7 @@ routes.get('/', (req, res) => {
 routes.post('/register', UserController.register);
 routes.post('/login', UserController.login);
 routes.get('/users', authenticate, UserController.index);
+routes.get('/users/:id', authenticate, UserController.findById);
 
 routes.post('/posts', authenticate, PostController.create);
 routes.delete('/posts/:id', authenticate, PostController.delete);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
+import axios from "axios";
 
 import { Container, Input } from "./styles";
 
@@ -9,9 +10,28 @@ export default function PostForm(props) {
 
   const handlePost = async (event) => {
     event.preventDefault();
-    await props.onCreatePost(title, text);
+    await onCreatePost(title, text);
     setText("");
     setTitle("");
+    props.history.push('/home');
+  };
+
+  const onCreatePost = async (title, content) => {
+    try {
+      const token = localStorage.getItem("SESSION_TOKEN");
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/posts`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: { "auth-token": token },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

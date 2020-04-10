@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import PostForm from "../PostForm";
 import PostList from "../../components/PostList";
 import Layout from "../../components/Layout";
 
@@ -11,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        console.log("inicio")
+        console.log("inicio");
         const token = localStorage.getItem("SESSION_TOKEN");
         const postResponse = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/posts`,
@@ -64,30 +63,8 @@ export default function Home() {
     setPosts(newPosts.reverse());
   };
 
-  const onCreatePost = async (title, content) => {
-    try {
-      const token = localStorage.getItem("SESSION_TOKEN");
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/posts`,
-        {
-          title,
-          content,
-        },
-        {
-          headers: { "auth-token": token },
-        }
-      );
-
-      setPosts([...posts, response.data]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <Layout>
-      <PostForm onCreatePost={onCreatePost} />
       <PostList posts={posts} onLike={handleLike} />
     </Layout>
   );

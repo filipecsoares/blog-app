@@ -13,7 +13,7 @@ export const Content = styled.div`
   padding: 0.4rem 0.5rem 0.5rem;
   border-radius: 10px;
   color: #1da1f2;
-  width: 4.2rem;
+  width: 4.5rem;
   text-align: center;
   font-weight: 600;
   cursor: pointer;

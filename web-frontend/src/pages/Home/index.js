@@ -10,7 +10,6 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        console.log("inicio");
         const token = localStorage.getItem("SESSION_TOKEN");
         const postResponse = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/posts`,
@@ -19,7 +18,6 @@ export default function Home() {
           }
         );
 
-        console.log(postResponse.data);
         const postUsers = await Promise.all(
           postResponse.data.map(async (post) => {
             const user = await axios.get(
@@ -42,24 +40,27 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  const handleLike = (ownerID, postID) => {
-    console.log(ownerID, postID);
-
-    const newPosts = posts.map((post) => {
-      if (post._id === postID) {
-        const postLiked = post.likes.find((owner) => owner === ownerID);
-
-        if (postLiked) {
-          return {
-            ...post,
-            likes: post.likes.filter((owner) => owner !== ownerID),
-          };
-        }
-        return { ...post, likes: [...post.likes, ownerID] };
+  const handleLike = async (ownerID, postID) => {
+    const token = localStorage.getItem("SESSION_TOKEN");
+    const postResponse = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/posts/${postID}`,
+      {
+        user: {
+          _id: ownerID,
+        },
+      },
+      {
+        headers: { "auth-token": token },
       }
-      return post;
+    );
+    let indexToReplace;
+    const newPosts = [...posts];
+    posts.forEach((post, index) => {
+      if (post._id === postID) {
+        indexToReplace = index;
+      }
     });
-
+    newPosts.splice(indexToReplace, 1, postResponse.data);
     setPosts(newPosts.reverse());
   };
 

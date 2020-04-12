@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import UtilConfig from "../../config/UtilConfig";
 
 export const Container = styled.div`
   display: flex;
@@ -7,22 +8,22 @@ export const Container = styled.div`
   padding: 1rem 2rem;
   color: #666;
   > span {
-    color: #1da1f2;
+    color: ${UtilConfig.primaryColor()};
     font-weight: 600;
   }
 `;
 
 export const LikeButton = styled.button`
   background: white;
-  border: 1px solid #1da1f2;
+  border: 1px solid ${UtilConfig.primaryColor()};
   padding: 0.4rem 1rem;
   border-radius: 20px;
-  color: #1da1f2;
+  color: ${UtilConfig.primaryColor()};
   font-weight: 600;
   cursor: pointer;
   margin-left: 0.5rem;
   &:hover {
-    background: #1da1f2;
+    background: ${UtilConfig.primaryColor()};
     color: white;
   }
 `;

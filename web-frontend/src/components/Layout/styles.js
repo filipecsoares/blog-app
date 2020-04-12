@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import UtilConfig from "../../config/UtilConfig";
 
 export const Container = styled.div`
-  background: #6fc3f6;
+  background: ${UtilConfig.primaryColor()};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,5 +16,4 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 1rem;
 `;

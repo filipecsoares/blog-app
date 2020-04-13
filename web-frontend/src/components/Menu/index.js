@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { Content, Container } from "./styles";
 
 export default function Menu() {
+  const logout = () => {
+    localStorage.removeItem("SESSION_TOKEN");
+    localStorage.removeItem("jwt");
+  }
   return (
     <Container>
       <Content id="home">
@@ -24,6 +28,11 @@ export default function Menu() {
       <Content id="contact">
         <Link to="/contact" className="text-link">
           Contact
+        </Link>
+      </Content>
+      <Content id="logout">
+        <Link to="/" onClick={logout} className="text-link">
+          Logout
         </Link>
       </Content>
     </Container>

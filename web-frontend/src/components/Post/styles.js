@@ -6,11 +6,14 @@ export const Container = styled.div`
   flex-direction: column;
   border-bottom: 1px solid #ccc;
   padding: 1rem 2rem;
-  color: #666;
+  color: #555;
+  font-weight: 600;
   > span {
-    color: ${UtilConfig.primaryColor()};
-    font-weight: 600;
+    color: #777;
+    font-weight: 400;
+    font-size: 13px;
   }
+  > 
 `;
 
 export const LikeButton = styled.button`

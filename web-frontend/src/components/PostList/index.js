@@ -7,7 +7,7 @@ export default function PostList(props) {
   return (
     <Container>
       <ul>
-        {props.posts.reverse().map((post) => (
+        {props.posts.map((post) => (
           <Post
             key={post._id}
             postId={post._id}
@@ -17,6 +17,7 @@ export default function PostList(props) {
             content={post.content}
             likes={post.likes.length}
             onLike={props.onLike}
+            createdAt={post.createdAt}
           />
         ))}
       </ul>

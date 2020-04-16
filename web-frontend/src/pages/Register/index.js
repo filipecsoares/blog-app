@@ -33,7 +33,7 @@ export default function Register() {
   };
 
   return (
-    <Layout>
+    <Layout loginPage="true">
       <Container>
         <Content>
           {error && <ErrorWarning>{error}</ErrorWarning>}

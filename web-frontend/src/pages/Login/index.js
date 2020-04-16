@@ -12,7 +12,7 @@ export default function Login() {
 
   const history = useHistory();
 
-  const handleLogin = async event => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     if (!username || !password) return;
@@ -22,7 +22,7 @@ export default function Login() {
         `${process.env.REACT_APP_SERVER_URL}/login`,
         {
           username,
-          password
+          password,
         }
       );
 
@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <Layout>
+    <Layout loginPage="true">
       <Container>
         <Content>
           {error && <ErrorWarning>{error}</ErrorWarning>}
@@ -52,7 +52,7 @@ export default function Login() {
             <Input
               required
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               type="text"
             />
           </div>
@@ -61,7 +61,7 @@ export default function Login() {
             <Input
               required
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
             />
           </div>

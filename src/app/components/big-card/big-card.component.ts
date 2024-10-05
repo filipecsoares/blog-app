@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-big-card',
-  standalone: true,
-  imports: [],
+  standalone: false,
   templateUrl: './big-card.component.html',
   styleUrl: './big-card.component.css'
 })
